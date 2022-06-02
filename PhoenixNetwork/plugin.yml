@@ -1,0 +1,6 @@
+name: PhoenixNetwork
+author: DarkenedFusion
+version: 0.0.1
+main: io.github.DarkenedFusion.Main
+commands:
+  grant:
