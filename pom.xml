@@ -40,7 +40,7 @@
         </repository>
         <repository>
             <id>jeff-media-public</id>
-            <url>https://hub.jeff-media.com/nexus/repositories/jeff-media-public</url>
+            <url>https://hub.jeff-media.com/nexus/repository/jeff-media-public/</url>
         </repository>
     </repositories>
     <build>
@@ -64,6 +64,23 @@
                         <phase>package</phase>
                     </execution>
                 </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>3.1.0</version>
+                <configuration>
+                    <outputDirectory>C:\Users\tyman\Desktop\1.18.2 Server\plugins</outputDirectory>
+                    <finalName>PhoenixNetwork</finalName>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>8</source>
+                    <target>8</target>
+                </configuration>
             </plugin>
         </plugins>
     </build>

@@ -2,5 +2,6 @@ name: PhoenixNetwork
 author: DarkenedFusion
 version: 0.0.1
 main: io.github.darkenedfusion.phoenixnetwork.Main
+api-version: 1.18
 commands:
   grant:

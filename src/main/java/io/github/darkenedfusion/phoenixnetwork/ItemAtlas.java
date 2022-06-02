@@ -13,7 +13,7 @@ import de.jeff_media.jefflib.SkullUtils;
 public class ItemAtlas {
 	
 
-
+	private String FIRECORE_ITEM = "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNzc1YmNhMWFmNWNiMTU1N2MxNzk0ZDIzZDkwN2RmMTE1OTMyMGUxNGViYTA1ODFjMjUxODdkYmViMjJiYTJjYyJ9fX0=";
 	
 	public ItemStack flameDagger() {
 		
@@ -34,15 +34,14 @@ public class ItemAtlas {
 	
 	public ItemStack fireCore() {
 		
-		ItemStack fCore = SkullUtils.getHead("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNzc1YmNhMWFmNWNiMTU1N2MxNzk0ZDIzZDkwN2RmMTE1OTMyMGUxNGViYTA1ODFjMjUxODdkYmViMjJiYTJjYyJ9fX0=");
+		ItemStack fCore = SkullUtils.getHead(FIRECORE_ITEM);
 		ItemMeta meta = fCore.getItemMeta();
 		
-		meta.setDisplayName(ChatColor.GOLD + "Fire Knights Dagger");
+		meta.setDisplayName(ChatColor.GOLD + "Fire Core");
 		meta.setUnbreakable(true);
 		
 		ArrayList<String> lore = new ArrayList<String>();
-		lore.add(ChatColor.RED + "Ability: " + ChatColor.DARK_RED + "Flame Flare");
-		lore.add(ChatColor.GOLD + "Sends a circle of flames to nearby enemies");
+		lore.add(ChatColor.GRAY + "The core is hot to the touch.");
 		meta.setLore(lore);
 		fCore.setItemMeta(meta);
 		

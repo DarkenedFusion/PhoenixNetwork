@@ -8,6 +8,7 @@ import org.bukkit.boss.BarStyle;
 import org.bukkit.boss.BossBar;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
@@ -30,13 +31,7 @@ public class Main extends JavaPlugin implements Listener  {
 		this.getServer().getPluginManager().registerEvents(new FireKnight(), this);
 		this.getServer().getPluginManager().registerEvents(new SpawnBoss(), this);
 		this.getServer().getPluginManager().registerEvents(new WeaponAbilities(), this);
-		
-	//	JeffLib.init(this);
-		
-		
-		
-		
-		
+		this.getServer().getPluginManager().registerEvents(new GameManager(), this);
 	}
 	
 
@@ -81,6 +76,6 @@ public class Main extends JavaPlugin implements Listener  {
 		return instance;
 	}
 	
-	
+
 
 }
