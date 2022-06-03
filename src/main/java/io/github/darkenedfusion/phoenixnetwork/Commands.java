@@ -35,8 +35,16 @@ public class Commands implements CommandExecutor {
 	}
 	if(player.isOp() && args[0].equalsIgnoreCase("fCore")) {
 		player.getInventory().addItem(atlas.fireCore());
-		
 	}
+	if(player.isOp() && args[0].equalsIgnoreCase("fGem")) {
+			player.getInventory().addItem(atlas.flameGem());
+	}
+	if(player.isOp() && args[0].equalsIgnoreCase("fScroll")) {
+			player.getInventory().addItem(atlas.flamePillarScroll());
+	}
+	if(player.isOp() && args[0].equalsIgnoreCase("fEgg")) {
+			player.getInventory().addItem(atlas.fireKnightEgg());
+		}
 	return false;
 	
 	}

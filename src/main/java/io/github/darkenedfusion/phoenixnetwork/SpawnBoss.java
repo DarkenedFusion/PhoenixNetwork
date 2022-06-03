@@ -1,6 +1,12 @@
 package io.github.darkenedfusion.phoenixnetwork;
 
+import org.bukkit.ChatColor;
+import org.bukkit.Material;
+import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.block.Action;
+import org.bukkit.event.player.PlayerInteractEvent;
 
 public class SpawnBoss implements Listener {
 	
@@ -14,35 +20,24 @@ public class SpawnBoss implements Listener {
 	
 	//SPAWNS THE FIRE KNIGHT
 	
-/*	
+
 	@EventHandler
-	public void onNetherDeath(EntityDeathEvent event) {
-		if(event.getEntity() instanceof MagmaCube){
-			if(event.getEntity().getCustomName().contains("Fire Knight")) {
-				return;
-			}
-		}
-			
-		if(event.getEntity().getWorld().getName().equals("world_nether") ||
-				event.getEntity().getWorld().getName().equals("SMP_nether")) {
-			if(event.getEntity().getKiller() instanceof Player) {
-				Player player = event.getEntity().getKiller();
-				double random = Math.random();
-				if(random <= 0.15D) {
-					 if(!CooldownManager.hasCooldown(player.getUniqueId(), CooldownManager.CustomEffects.FIREKNIGHTSPAWN)) {
-					player.sendMessage(ChatColor.DARK_RED + "The " + ChatColor.GOLD + "Fire Knight " + ChatColor.DARK_RED + "has risen!");
+	public void spawnFireBoss(PlayerInteractEvent event){
+		Player player = event.getPlayer();
+		Action a = event.getAction();
+
+		if(player.getInventory().getItemInMainHand().getType().equals(Material.FIREWORK_STAR)) {
+			if(player.getInventory().getItemInMainHand().getItemMeta().getDisplayName().equals(ChatColor.GOLD + "Fire Knight Egg")) {
+				if (a.equals(Action.RIGHT_CLICK_AIR) || a.equals(Action.RIGHT_CLICK_BLOCK)) {
 					fKnight.createFireKnight(player.getLocation());
-					
-						CooldownManager.setCooldown(player.getUniqueId(), CustomEffects.FIREKNIGHTSPAWN, 1800);
-					 }
+					player.getInventory().remove(player.getInventory().getItemInMainHand());
+
 				}
-				
-				
 			}
 		}
-		
 	}
-	*/
+
+
 	
 	
 	

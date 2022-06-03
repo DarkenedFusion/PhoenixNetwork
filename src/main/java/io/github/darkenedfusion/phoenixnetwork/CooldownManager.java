@@ -12,7 +12,7 @@ public class CooldownManager {
 
     public enum CustomEffects {
         FIRECHARGE,
-        FIREKNIGHTSPAWN,
+        FIREKNIGHTSPAWN, FLAMEPILLAR, FIRESPAWN,
         
         
         

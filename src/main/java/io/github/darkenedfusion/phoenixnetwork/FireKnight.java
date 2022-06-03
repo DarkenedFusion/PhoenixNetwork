@@ -1,23 +1,22 @@
 package io.github.darkenedfusion.phoenixnetwork;
 
-import org.bukkit.ChatColor;
-import org.bukkit.Location;
-import org.bukkit.Particle;
-import org.bukkit.Sound;
+import org.bukkit.*;
 import org.bukkit.attribute.Attributable;
 import org.bukkit.boss.BarColor;
 import org.bukkit.boss.BarStyle;
-import org.bukkit.entity.EntityType;
-import org.bukkit.entity.LivingEntity;
-import org.bukkit.entity.MagmaCube;
-import org.bukkit.entity.Player;
+import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDeathEvent;
+import org.bukkit.event.entity.ProjectileHitEvent;
 import org.bukkit.event.entity.SlimeSplitEvent;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.Vector;
+
+import java.util.ArrayList;
+import java.util.Random;
 
 public class FireKnight implements Listener {
 	
@@ -32,9 +31,9 @@ public class FireKnight implements Listener {
 		fKnight.setCustomNameVisible(true);
 		Attributable knightAI = fKnight;
 		Main.createBossBar(fKnight, ChatColor.GOLD + "Fire Knight", BarColor.RED, BarStyle.SOLID);
-		fKnight.setSize(5);
-		fKnight.setMaxHealth(1000);
-		fKnight.setHealth(1000);
+		fKnight.setSize(10);
+		fKnight.setMaxHealth(300);
+		fKnight.setHealth(300);
 		
 		
 	}
@@ -64,12 +63,22 @@ public class FireKnight implements Listener {
 					
 					
 				}
-				
-				
+				if(event.getDamager() instanceof Projectile){
+					Projectile arrow = (Projectile) event.getDamager();
+						Player player = (Player) arrow.getShooter();
+
+						arrow.setVelocity(arrow.getLocation().getDirection().multiply(-2));
+
+						event.setCancelled(true);
+						arrow.remove();
+
+				}
 				
 			}
 		}
 	}
+
+
 	
 	
 	
@@ -92,11 +101,11 @@ public class FireKnight implements Listener {
                double x = radius * Math.cos(y);
                double z = radius * Math.sin(y);
               loc.getWorld().spawnParticle(Particle.FLAME, (float) (loc.getX() + x), (float) (loc.getY() + y), (float) (loc.getZ() + z), 0, 0,0, 0, 1);
-              player.getWorld().playSound(loc, Sound.ENTITY_BLAZE_BURN, 1, 0.5f);
+              player.getWorld().playSound(loc, Sound.ENTITY_BLAZE_BURN, 0.1f, 0.5f);
            }
            
            player.setVelocity(new Vector(0, 1, 0));
-           player.setFireTicks(60);
+           player.setFireTicks(20*5);
 		
 	}
 	
@@ -104,7 +113,7 @@ public class FireKnight implements Listener {
 		
 		   boss.setVelocity(new Vector(0, 10, 0));
 		   boss.setGravity(false);
-		  
+		   boss.getWorld().playSound(boss.getLocation(), Sound.BLOCK_ANVIL_LAND, 5, 0.1f);
 		   new BukkitRunnable() {
 			   double t = 0;
 			   public void run() {
@@ -114,7 +123,7 @@ public class FireKnight implements Listener {
 					   boss.setGravity(true);
 					   
 					   Location loc = boss.getLocation();
-					   
+
 					   int points = 20; // the amount of points the polygon should have.
 			  			for (int iteration = 0; iteration < points; iteration++) {
 			  			  double angle = 360.0 / points * iteration;
@@ -141,10 +150,23 @@ public class FireKnight implements Listener {
 				   
 				   if(t > 60) {
 					   boss.setInvulnerable(true);
-					   boss.getWorld().createExplosion(boss.getLocation(), 10);
-					   this.cancel();
+					   boss.getWorld().createExplosion(boss.getLocation(), 0, false);
+					   ArrayList<LivingEntity> nearby = new ArrayList<LivingEntity>();
+					   double range = 10;
+					   for(Entity e : boss.getNearbyEntities(range, range, range)) {
+						   if (e instanceof LivingEntity) {
+
+							   nearby.add((LivingEntity) e);
+
+
+							   ((LivingEntity) e).damage(6);
+						   }
+					   }
+
 					   boss.setInvulnerable(false);
-					   boss.getWorld().playSound(boss.getLocation(), Sound.BLOCK_ANVIL_FALL, 5, 0.0f);
+					   this.cancel();
+
+
 				   }
 			   }
 		   }.runTaskTimer(Main.getInstance(), 0, 1);
@@ -157,15 +179,28 @@ public class FireKnight implements Listener {
 		if(event.getEntity() instanceof MagmaCube) {
 			MagmaCube boss = (MagmaCube) event.getEntity();
 			if(boss.getCustomName().equals(ChatColor.GOLD + "Fire Knight")) {
-				double randDouble = Math.random();
-				
-				if(randDouble <= 0.20) {
-					
+					Random random = new Random();
+
+				if (random.nextInt(101) <= 50) {
+
+					boss.getWorld().dropItem(boss.getLocation(), new ItemStack(Material.IRON_INGOT));
+				}
+				if (random.nextInt(101) <= 10) {
+
 					boss.getWorld().dropItem(boss.getLocation(), atlas.flameDagger());
+				}
+				if (random.nextInt(101) <= 1) {
+
+					boss.getWorld().dropItem(boss.getLocation(), atlas.fireCore());
+				}
+				if (random.nextInt(101) <= 0.5) {
+
+					boss.getWorld().dropItem(boss.getLocation(), atlas.flameGem());
+
 				}
 			}
 		}
 	}
 	
-	
+
 }
